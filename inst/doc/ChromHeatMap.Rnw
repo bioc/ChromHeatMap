@@ -1,0 +1,157 @@
+% $Id: ChromHeatMap.Rnw 2076 2009-10-06 10:04:19Z tfrayner $
+%
+% \VignetteIndexEntry{Plotting expression data with ChromHeatMap}
+% \VignetteKeywords{expression, plotting, chromosome, idiogram, cytoband}
+% \VignettePackage{ChromHeatMap}
+
+\documentclass[a4paper]{article}
+\SweaveOpts{eps=false}
+
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\textit{#1}}}
+\newcommand{\Rpackage}[1]{{\textbf{#1}}}
+
+\begin{document}
+
+\title{ChromHeatMap}
+\author{Tim F. Rayner}
+\maketitle
+\begin{center}
+  Cambridge Institute of Medical Research
+\end{center}
+
+\section{Introduction}
+
+The \Rpackage{ChromHeatMap} package provides functions for visualising
+expression data in a genomic context, by generating heat map images in
+which data is plotted along a given chromosome for all the samples in
+a data matrix.
+
+These functions rely on the existence of a suitable
+\Rpackage{AnnotationDbi} package which provides annotation for the
+probes on your array, and either an ExpressionSet or a data matrix
+with row names corresponding to probe identifiers and columns
+corresponding to samples.
+
+The output heatmap can include sample clustering, and data can either
+be plotted for each strand separately, or both strands combined onto a
+single heat map.  An idiogram showing the cytogenetic banding pattern
+of the chromosome will be plotted for supported organisms (at the time
+of writing: \textit{Homo sapiens}, \textit{Mus musculus} and \textit{Rattus
+  norvegicus}).
+
+Once a heat map has been plotted, probes of interest can be identified
+interactively. These identifiers may then be mapped back to gene
+symbols and other annotation via the \Rpackage{AnnotationDbi} package.
+
+\section{Data preparation}
+
+Expression data in the form of a data matrix must initially be mapped
+onto its corresponding chromosome coordinates. This is done using the
+\Rfunction{makeChrStrandData}:
+
+<<>>=
+library('ALL')
+data('ALL')
+selSamples <- ALL$mol.biol %in% c('ALL1/AF4', 'E2A/PBX1')
+ALLs <- ALL[, selSamples]
+
+library('ChromHeatMap')
+chrdata<-makeChrStrandData(exprs(ALLs), lib='hgu95av2')
+@
+
+The output \Robject{chrdata} object here contains the expression data
+indexed by coordinate. Note that the \Rfunction{makeChrStrandData}
+function is based on the \Rfunction{Makesense} function in the
+\Rpackage{geneplotter} package, removing the internal call to lowess
+to avoid smoothing the data (which is undesirable in this case). The
+\Rfunction{makeChrStrandData} function is used specifically because it
+incorporates information on both the start and end chromosome
+coordinates for each probe target. This allows the
+\Rfunction{plotChrMap} function to accurately represent target widths
+on the chromosome plot.
+
+\section{Plotting the heat map}
+
+Once the data has been prepared, a single call to
+\Rfunction{plotChrMap} will generate the chromosome heat map. There
+are many options available for this plot, and only a couple of them
+are illustrated here. Here we generate a whole-chromosome plot
+(chromosome 19), with both strands combined into a single heat map:
+
+\begin{center}
+<<fig=TRUE,width=12,height=6>>=
+groupcol <- ifelse( ALLs$mol.biol == 'ALL1/AF4', 'red', 'green' )
+plotChrMap(chrdata, 19, strands='both', RowSideColors=groupcol)
+@ 
+\end{center}
+
+Chromosomes can be subsetted by cytoband or start/end coordinates
+along the chromosome. The following illustrates how one might plot the
+strands separately (this is the default behavior):
+
+\begin{center}
+<<fig=TRUE,width=12,height=6>>=
+plotmap<-plotChrMap(chrdata, 1, cytoband='q23', interval=50000, srtCyto=0, cexCyto=1.2)
+@ 
+\end{center}
+
+Other options include subsetting of samples, adding a color key to
+indicate sample subsets, deactivating the sample-based clustering and
+so on. See the help pages for \Rfunction{plotChrMap} and
+\Rfunction{drawMapDendro} for details.
+
+Note that the default colors provided by the \Rfunction{heat.colors}
+function are not especially attractive or informative; consider using
+custom-defined colors, for example by using the
+\Rpackage{RColorBrewer} package.
+
+The output of the \Rfunction{plotChrMap} function can be subsequently
+used with the \Rfunction{grabChrMapProbes} function which enables the
+user to identify the probes responsible for heatmap bands of interest.
+
+Note that the \Rfunction{layout} and \Rfunction{par} options for the
+current graphics device are \emph{not} reset following generation of
+the image. This is so that the \Rfunction{grabChrMapProbes} function can
+accurately identify the region of interest when the user interactively
+clicks on the diagram.
+
+\section{Interactive probe identification}
+
+Often it will be of interest to determine exactly which probes are
+shown to be up- or down-regulated by the \Rfunction{plotChrMap} heat
+map. This can be done using the \Rfunction{grabChrMapProbes}
+function. This takes the output of the \Rfunction{plotChrMap}
+function, asks the user to mouse-click the heatmap on either side of
+the bands of interest and returns a character vector of the probe
+identifiers in that region. These can then be passed to the
+\Rpackage{AnnotationDbi} function \Rfunction{mget} to identify which
+genes are being differentially expressed.
+
+<<eval=FALSE>>=
+probes <- grabChrMapProbes( plotmap )
+genes <- unlist(mget(probes, envir=hgu95av2SYMBOL, ifnotfound=NA))
+@ 
+
+Note that due to the way the expression values are plotted, genes
+which lie very close to each other on the chromosome may have been
+averaged to give a signal that could be usefully plotted at screen
+resolution. In such cases the probe identifiers will be returned
+concatenated, separated by semicolons
+(e.g. ``\texttt{37687\_i\_at;37688\_f\_at;37689\_s\_at}''). Typically this is
+easily solved by zooming in on a region of interest, using either
+the ``cytoband'' or ``start'' and ``end'' options to
+\Rfunction{plotChrMap}. See also the ``interval'' option for another
+approach to this problem.
+
+\section{Session information}
+
+The version number of R and packages loaded for generating the
+vignette were:
+
+<<echo=FALSE>>=
+sessionInfo()
+@ 
+
+\end{document}
+

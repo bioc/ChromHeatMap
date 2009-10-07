@@ -1,0 +1,44 @@
+importClassesFrom(Biobase, ExpressionSet)
+
+importClassesFrom(methods, matrix)
+
+importMethodsFrom(AnnotationDbi, colnames, isNA, ncol, nrow, subset)
+
+importMethodsFrom(Biobase, exprs, annotation, sampleNames, featureNames)
+
+importFrom(Biobase, selectSome)
+
+importFrom(IRanges, IRanges, RangedDataList)
+
+importFrom(rtracklayer, GenomicData, browserSession, browserView, 'track<-')
+
+importFrom(annotate, getAnnMap)
+
+importFrom(graphics, axis, image, layout, lines, locator, mtext, par,
+          plot, plot.new, polygon, rect, symbols, text, yinch)
+
+importFrom(grDevices, gray)
+
+importFrom(stats, as.dendrogram, dist, hclust, na.omit,
+          order.dendrogram, quantile, reorder)
+
+exportClasses(
+              ChrStrandData,
+              ChrStrandMatrix,
+              ChrMapPlot
+              )
+
+exportMethods(
+              chrNames
+              )
+
+export(
+       plotChrMap,
+       makeChrStrandData,
+       grabChrMapProbes,
+       makeRangedDataList,
+       createChrMatrix,
+       chrHeatMap,
+       drawMapDendro
+       )
+

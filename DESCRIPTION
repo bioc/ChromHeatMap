@@ -1,0 +1,13 @@
+Package: ChromHeatMap
+Version: 0.99.0
+Date: 2009-10-06
+Title: Heat map plotting by genome coordinate
+Description: The ChromHeatMap package can be used to plot genome-wide data (e.g. expression, CGH, SNP) along each strand of a given chromosome as a heat map. The generated heat map can be used to interactively identify probes, and thereby genes, of interest.
+Author: Tim F. Rayner
+Maintainer: Tim F. Rayner <tfrayner@gmail.com>
+Depends: R (>= 2.9.0), annotate (>= 1.20.0), AnnotationDbi (>= 1.4.0), hgu95av2.db
+Imports: annotate, AnnotationDbi, Biobase, graphics, grDevices, methods, stats, IRanges, rtracklayer
+Suggests: ALL
+License: The Artistic License, Version 2.0
+biocViews: Visualization
+
