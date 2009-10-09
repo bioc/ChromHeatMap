@@ -8,6 +8,6 @@ Maintainer: Tim F. Rayner <tfrayner@gmail.com>
 Depends: R (>= 2.9.0), annotate (>= 1.20.0), AnnotationDbi (>= 1.4.0), hgu95av2.db
 Imports: annotate, AnnotationDbi, Biobase, graphics, grDevices, methods, stats, IRanges, rtracklayer
 Suggests: ALL
-License: The Artistic License, Version 2.0
+License: Artistic-2.0
 biocViews: Visualization
 
