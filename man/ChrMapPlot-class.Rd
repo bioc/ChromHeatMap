@@ -8,7 +8,7 @@
 \alias{summary,ChrMapPlot-method}
 
 \title{
-  Class containing a mapping between plot location and probe identifier.
+  Class containing a mapping between plot location and probe or gene identifier.
 }
 
 \description{
@@ -27,7 +27,7 @@
 
    \describe{
 
-     \item{labels}{An array of probe identifiers, with names corresponding
+     \item{labels}{An array of probe or gene identifiers, with names corresponding
        to chromosome coordinates}.
 
      \item{start}{The leftmost interval number (most usually 1).}

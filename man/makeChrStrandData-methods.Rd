@@ -6,7 +6,7 @@
 \title{Map a data matrix onto chromosome coordinates}
 \description{
 
-  Given a data matrix with row names corresponding to the probe IDs in
+  Given a data matrix with row names corresponding to the probe or gene IDs in
   an accompanying annotation package, returns a data structure that can
   be used with the \code{plotChrMap} function. Based on the Makesense
   method from the geneplotter package.
@@ -18,8 +18,9 @@
 \item{expr = "ExpressionSet"}{ Given an ExpressionSet object, returns a
   ChrStrandData object. }
 
-\item{expr = "matrix"}{ Given a matrix object (where \code{rownames(expr)} yields
-  the probe identifiers), returns a ChrStrandData object. }
+\item{expr = "matrix"}{ Given a matrix object (where
+  \code{rownames(expr)} yields the probe or gene identifiers used by the
+  annotation package), returns a ChrStrandData object. }
 
 }}
 \keyword{methods}

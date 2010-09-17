@@ -6,11 +6,17 @@
 \description{
 
   Given an ExpressionSet, or a data matrix with row names corresponding
-  to the probe IDs in an accompanying annotation package, this function
+  to the probe or gene IDs in an accompanying annotation package, this function
   returns a data structure that can be used with the \code{plotChrMap}
   function. This code is based on the Makesense method from the
   geneplotter package, extended to use both the CHRLOC and CHRLOCEND
   annotation environments from recent AnnotationDbi packages.
+
+  In principle, any AnnotationDbi-based package could be used to provide
+  chromosome location data to this function; all that matters is that
+  the probe or gene identifiers used by the annotation package should be
+  from the same source as the data ExpressionSet featureNames or matrix row
+  names.
 
 }
 \usage{

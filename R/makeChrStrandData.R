@@ -52,7 +52,7 @@ setMethod('makeChrStrandData', signature(expr='matrix'), function(expr, lib){
 
     genes <- rownames(expr)
     if ( length(genes) != nrow(expr) )
-        stop("Error: Data matrix must have row names corresponding to probe IDs.")
+        stop("Error: The data matrix must have row names corresponding to the annotation package probe or gene IDs.")
 
     libCHR <- getAnnMap("CHR", lib)
     libCHRLOC <- getAnnMap("CHRLOC", lib)

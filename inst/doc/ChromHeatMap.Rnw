@@ -28,19 +28,23 @@ which data is plotted along a given chromosome for all the samples in
 a data matrix.
 
 These functions rely on the existence of a suitable
-\Rpackage{AnnotationDbi} package which provides annotation for the
-probes on your array, and either an ExpressionSet or a data matrix
-with row names corresponding to probe identifiers and columns
-corresponding to samples.
+\Rpackage{AnnotationDbi} package which provides chromosome location
+information for the probe- or gene-level identifiers used in your data
+set. The data themselves must be in either an ExpressionSet, or a data
+matrix with row names corresponding to probe or gene identifiers and
+columns corresponding to samples. While the \Rpackage{ChromHeatMap}
+package was originally designed for use with microarray data, given an
+appropriate \Rpackage{AnnotationDbi} package it can also be used to
+visualise data from next-generation sequencing experiments.
 
 The output heatmap can include sample clustering, and data can either
 be plotted for each strand separately, or both strands combined onto a
 single heat map.  An idiogram showing the cytogenetic banding pattern
 of the chromosome will be plotted for supported organisms (at the time
 of writing: \textit{Homo sapiens}, \textit{Mus musculus} and \textit{Rattus
-  norvegicus}).
+  norvegicus}; please contact the maintainer to request additions).
 
-Once a heat map has been plotted, probes of interest can be identified
+Once a heat map has been plotted, probes or genes of interest can be identified
 interactively. These identifiers may then be mapped back to gene
 symbols and other annotation via the \Rpackage{AnnotationDbi} package.
 
@@ -67,7 +71,7 @@ function is based on the \Rfunction{Makesense} function in the
 to avoid smoothing the data (which is undesirable in this case). The
 \Rfunction{makeChrStrandData} function is used specifically because it
 incorporates information on both the start and end chromosome
-coordinates for each probe target. This allows the
+coordinates for each locus. This allows the
 \Rfunction{plotChrMap} function to accurately represent target widths
 on the chromosome plot.
 
@@ -108,7 +112,7 @@ custom-defined colors, for example by using the
 
 The output of the \Rfunction{plotChrMap} function can be subsequently
 used with the \Rfunction{grabChrMapProbes} function which enables the
-user to identify the probes responsible for heatmap bands of interest.
+user to identify the probes or genes responsible for heatmap bands of interest.
 
 Note that the \Rfunction{layout} and \Rfunction{par} options for the
 current graphics device are \emph{not} reset following generation of
@@ -116,14 +120,14 @@ the image. This is so that the \Rfunction{grabChrMapProbes} function can
 accurately identify the region of interest when the user interactively
 clicks on the diagram.
 
-\section{Interactive probe identification}
+\section{Interactive probe/gene identification}
 
-Often it will be of interest to determine exactly which probes are
+Often it will be of interest to determine exactly which probes or genes are
 shown to be up- or down-regulated by the \Rfunction{plotChrMap} heat
 map. This can be done using the \Rfunction{grabChrMapProbes}
 function. This takes the output of the \Rfunction{plotChrMap}
 function, asks the user to mouse-click the heatmap on either side of
-the bands of interest and returns a character vector of the probe
+the bands of interest and returns a character vector of the locus
 identifiers in that region. These can then be passed to the
 \Rpackage{AnnotationDbi} function \Rfunction{mget} to identify which
 genes are being differentially expressed.
@@ -136,7 +140,7 @@ genes <- unlist(mget(probes, envir=hgu95av2SYMBOL, ifnotfound=NA))
 Note that due to the way the expression values are plotted, genes
 which lie very close to each other on the chromosome may have been
 averaged to give a signal that could be usefully plotted at screen
-resolution. In such cases the probe identifiers will be returned
+resolution. In such cases the locus identifiers will be returned
 concatenated, separated by semicolons
 (e.g. ``\texttt{37687\_i\_at;37688\_f\_at;37689\_s\_at}''). Typically this is
 easily solved by zooming in on a region of interest, using either

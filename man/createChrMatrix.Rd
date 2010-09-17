@@ -42,9 +42,9 @@ createChrMatrix(data, chr, strand = c('forward','reverse','both'), subset = NULL
   Typically this function will not be called directly, but rather via
   the wrapper \code{plotChrMap} function.
 
-  Note that this function may combine data from multiple probes (taking
+  Note that this function may combine data from multiple probes or genes (taking
   the mean) into a single chromosomal locus based on the size of the
-  specified interval. If this happens the combined probe identifiers are
+  specified interval. If this happens the combined probe/gene identifiers are
   concatenated in the output object, separated by a semicolon.
   
 }

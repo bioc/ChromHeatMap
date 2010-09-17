@@ -45,7 +45,7 @@ plotChrMap( data, chr, start = 1, end, subset = NULL,
   coordinates. The default heat map will plot the entire forward strand
   for the chosen chromosome at the top of the figure, with an idiogram
   and the reverse strand below it. To plot both strands overlaid, use
-  the \code{strands='both'} argument. Probe signals are averaged over a
+  the \code{strands='both'} argument. Probe or gene signals are averaged over a
   window size controlled by \code{interval}, such that the default
   length of each heat map segment is 1/500 the total heat map
   width. This can be varied as required to control the resolution of the
@@ -70,7 +70,7 @@ plotChrMap( data, chr, start = 1, end, subset = NULL,
 }
 \value{
 
-  A ChrMapPlot object containing a list of probe identifiers mapped to
+  A ChrMapPlot object containing a list of probe/gene identifiers mapped to
   their corresponding display locations, for use with
   \code{grabChrMapProbes}.
   

@@ -31,9 +31,9 @@
   \code{createChrMatrix(chrdata, chr=22, strand='forward', start=21925000,
     end=24300000, interval=5000)}
 
-  Note that this function may combine data from multiple probes (taking
+  Note that this function may combine data from multiple probes or genes (taking
   the mean) into a single chromosomal locus based on the size of the
-  specified interval. If this happens the combined probe identifiers are
+  specified interval. If this happens the combined probe/gene identifiers are
   concatenated in the output object, separated by a semicolon.
   
 }
@@ -45,7 +45,7 @@
      \item{data}{The data matrix, arranged with samples in columns and
        genomic locations in rows.}
 
-     \item{probeID}{An array of probe identifiers associated with the
+     \item{probeID}{An array of probe or gene identifiers associated with the
        data. The names attached to this array correspond with chromosome
        coordinate (specifically, the starting coordinates, i.e. the
        left-hand edges). These identifiers will ultimately be returned by e.g. the
@@ -75,7 +75,7 @@
     \item{\code{sampleNames(ChrStrandMatrix)}}{Returns the names of the
       samples associated with the object.}    
 
-    \item{\code{featureNames(ChrStrandMatrix)}}{Returns the probe
+    \item{\code{featureNames(ChrStrandMatrix)}}{Returns the probe or gene
       identifiers associated with the object.}    
 
     \item{\code{exprs(ChrStrandMatrix)}}{Returns the chromosome-specific
