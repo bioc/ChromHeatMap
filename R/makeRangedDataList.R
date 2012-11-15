@@ -8,7 +8,8 @@ makeRangedDataList <- function (data, chr, start=1, end, genome, subset=NULL,
         GenomicData(targetRanges,
                     score,
                     chrom = chr,
-                    genome = genome)
+                    genome = genome,
+                    asRangedData = TRUE)
     }
                     
     if ( ! inherits(data, 'ChrStrandData') )
