@@ -5,11 +5,10 @@ makeRangedDataList <- function (data, chr, start=1, end, genome, subset=NULL,
 
     makeRangedData <- function( sample, mat, chr, targetRanges, genome ) {
         score <- mat@data[sample,]
-        GenomicData(targetRanges,
-                    score,
-                    chrom = chr,
-                    genome = genome,
-                    asRangedData = TRUE)
+        as(GenomicData(targetRanges,
+                       score,
+                       chrom = chr,
+                       genome = genome), 'RangedData')
     }
                     
     if ( ! inherits(data, 'ChrStrandData') )

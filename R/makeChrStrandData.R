@@ -2,8 +2,6 @@
 
 retrieveAnnot <- function ( genes, envir ) {
 
-    require('AnnotationDbi')
-
     ## We break the query into chunks so that it doesn't overwhelm SQLite.
     chunk   <- 100000
     results <- list()
@@ -19,15 +17,11 @@ retrieveAnnot <- function ( genes, envir ) {
 
 setGeneric('makeChrStrandData', def=function(expr, lib) standardGeneric('makeChrStrandData'))
 
-require(Biobase)
 setMethod('makeChrStrandData', signature(expr='ExpressionSet'), function(expr , lib ) makeChrStrandData(exprs(expr), lib))
 
 ## The below was cut and pasted from the geneplotter Makesense code in
 ## svn, and then modified to remove the call to lowess and add support for CHRLOCEND.
 setMethod('makeChrStrandData', signature(expr='matrix'), function(expr, lib){
-
-    require('AnnotationDbi')
-    require('annotate')
 
     if ( missing(expr) )
       stop("Error: expr argument is required")

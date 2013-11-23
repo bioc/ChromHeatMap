@@ -37,8 +37,6 @@ calculateLimits <- function( data, chr, start=1, end, cytoband ) {
     if ( ! inherits(data, 'ChrStrandData') )
         stop("Error: data must be a ChrStrandData object, e.g. the output of makeChrStrandData()")
 
-    require(annotate)    ## imports getAnnMap
-
     ## Load the specified library (add the .db extension).
     lib <- data@lib
     if (is.null(lib))
