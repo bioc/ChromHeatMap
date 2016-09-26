@@ -10,14 +10,18 @@ importMethodsFrom(Biobase, exprs, annotation, sampleNames, featureNames)
 
 importFrom(Biobase, selectSome)
 
-importFrom(IRanges, IRanges, RangedDataList)
+importFrom(IRanges, IRanges)
+
+importFrom(GenomicRanges, GRangesList)
 
 importFrom(rtracklayer, GenomicData, browserSession, browserView, 'track<-')
 
 importFrom(annotate, getAnnMap)
 
 importFrom(graphics, axis, image, layout, lines, locator, mtext, par,
-          plot, plot.new, polygon, rect, symbols, text, yinch)
+           plot, plot.new, polygon, rect, symbols, text, yinch)
+
+importFrom(utils, data)
 
 importFrom(grDevices, gray)
 

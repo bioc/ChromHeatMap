@@ -3,12 +3,12 @@
 makeRangedDataList <- function (data, chr, start=1, end, genome, subset=NULL,
                                 cytoband, plot=FALSE, session) {
 
-    makeRangedData <- function( sample, mat, chr, targetRanges, genome ) {
+    .makeGRanges <- function( sample, mat, chr, targetRanges, genome ) {
         score <- mat@data[sample,]
         as(GenomicData(targetRanges,
                        score,
                        chrom = chr,
-                       genome = genome), 'RangedData')
+                       genome = genome), 'GRanges')
     }
                     
     if ( ! inherits(data, 'ChrStrandData') )
@@ -44,9 +44,9 @@ makeRangedDataList <- function (data, chr, start=1, end, genome, subset=NULL,
     targetRanges <- IRanges(mat@start, mat@end)
 
     chr <- paste('chr', chr, sep='')
-    tracks <- lapply( names(data@data), makeRangedData, mat, chr, targetRanges, genome )
+    tracks <- lapply( names(data@data), .makeGRanges, mat, chr, targetRanges, genome )
     names( tracks ) <- names(data@data)
-    tracks <- do.call(RangedDataList, tracks)
+    tracks <- do.call(GRangesList, tracks)
 
     min <- min(mat@data) - (0.1 * abs(min(mat@data)))
     max <- max(mat@data) + (0.1 * abs(max(mat@data)))

@@ -4,7 +4,7 @@
 \title{ Plot expression data as tracks in the UCSC genome browser }
 \description{
 
-  Creates a RangedDataList object suitable for uploading to the UCSC
+  Creates a GRangesList object suitable for uploading to the UCSC
   genome browser using the rtracklayer package. 
 
 }
@@ -31,14 +31,14 @@ makeRangedDataList( data, chr, start = 1, end, genome, subset = NULL,
   \item{cytoband}{Optional cytological band to plot (e.g. `q23').}
 
   \item{plot}{An optional flag indicating whether to automatically plot
-    the resulting RangedDataList on the UCSC browser or not.}
+    the resulting GRangesList on the UCSC browser or not.}
 
   \item{session}{An optional rtracklayer UCSCSession object. Ignored
     unless plot=TRUE.}
 }
 \details{
 
-  This function is used to create RangedDataList objects from ChrStrandData
+  This function is used to create GRangesList objects from ChrStrandData
   objects (see the \code{makeChrStrandData} function). If the \code{plot}
   argument is set to TRUE, the data is also uploaded to a UCSC browser
   session using default settings. See the rtracklayer package for more
@@ -47,7 +47,7 @@ makeRangedDataList( data, chr, start = 1, end, genome, subset = NULL,
 }
 \value{
 
-  A RangedDataList object containing the data for the specified genome
+  A GRangesList object containing the data for the specified genome
   region. See the rtracklayer package for more information on this
   object class.
 
@@ -56,7 +56,7 @@ makeRangedDataList( data, chr, start = 1, end, genome, subset = NULL,
 \author{ Tim F Rayner }
 \seealso{
   \code{\link{makeChrStrandData}},
-  \code{\link[IRanges:RangedDataList-class]{RangedDataList}}
+  \code{\link[GenomicRanges:GRangesList-class]{GRangesList}}
   \code{\link{plotChrMap}},
 }
 \examples{
