@@ -1,5 +1,5 @@
 Package: ChromHeatMap
-Version: 1.50.0
+Version: 1.51.0
 Date: 2016-09-30
 Title: Heat map plotting by genome coordinate
 Description: The ChromHeatMap package can be used to plot genome-wide data (e.g. expression, CGH, SNP) along each strand of a given chromosome as a heat map. The generated heat map can be used to interactively identify probes and genes of interest.
